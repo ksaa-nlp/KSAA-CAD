@@ -112,11 +112,11 @@ We leverage SOTA MARBERT (Abdul-Mageed, 2021) and CamelBERT-MSA (Inoue et al., 2
 
 |   Model    | Embedding   | Cosine  |  MSE    | Ranking
 |------------|------------:|--------:|--------:|--------:
-|            |   bertmsa   | 81.85   | 21.95   | 1.09
-| CamelBERT  |   bertseg   | 84.36   | 5.55    | 1.26
+| CamelBERT  |   bertmsa   | 81.85   | 21.95   | 1.09
+|            |   bertseg   | 84.36   | 5.55    | 1.26
 |            |   electra   | 51.13   | 24.28   | 3.34
-|            |   bertmsa   | 69.48   | 50.16   | 3.34
-| MARBERT    |   bertseg   | 76.03   | 8.18    | 3.34
+|  MARBERT   |   bertmsa   | 69.48   | 50.16   | 3.34
+|            |   bertseg   | 76.03   | 8.18    | 3.34
 |            |   electra   | 73.68   | 14.57   | 0.84
 
 
