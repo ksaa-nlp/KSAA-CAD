@@ -33,13 +33,17 @@ Datasets can be downloaded from [CODALAB-Task1](https://codalab.lisn.upsaclay.fr
 The dataset itself comprises two core components: the dictionary data and the word embedding vectors. In the generation of these word embeddings, our approach is to utilize three distinct architectures of contextualized word embedding.
 
 
-**Dictionary data**.
+**Dictionary data**
+
+
 In the first iteration of KSAA-RD (Al-Matham et al., 2023), the dataset derived from a single source: the "Contemporary Arabic Language Dictionary" by Ahmed Mokhtar Omar (Omar, 2008). In this revised edition, we endeavor to expand our sources to encompass three dictionaries of Contemporary Arabic Language. The first of these is the "Contemporary Arabic Language Dictionary" by Ahmed Mokhtar Omar (Omar, 2008), a resource previously utilized in the first iteration KSAA-RD. The second is the newly released dictionary of the Arabic contemporary language "Mu'jam Arriyadh" (Altamimi et al., 2023). The third is the "Al Wassit LMF Arabic Dictionary" (Namly, 2015).
 The three dictionaries employ the transferred version of this lexicon which conforms to the ISO standard, specifically the Lexical Markup Framework (LMF) (Aljasim et al., 2022; Altamimi et al., 2023; Namly, 2015). These dictionaries are based on lemmas rather than roots.
 These dictionaries comprise words, commonly referred to as lemmas, and these may come with glosses, part of speech (POS), and examples. 
 
 
 **Embedding data**
+
+
 Experiments conducted on the first iteration of KSAA-RD (Al-Matham et al., 2023) revealed that fixed word embedding representations such as word2vec (Mikolov et al., 2013; Soliman et al., 2017) did not yield satisfactory performance. Consequently, in this edition, our focus will shift to contextualized word embeddings, which demonstrate improved performance in KSAA-RD. Accordingly, we will utilize advanced models such as Electra (Clark et al., 2020) and BERT (Devlin et al., 2019), to enhance the effectiveness of the system. Specifically, employing AraELECTRA (Antoun et al., 2021), AraBERTv2 (Antoun et al., 2020),, and camelBERT-MSA (Inoue et al., 2021)—referred to respectively as electra, bertseg, and bertmsa—for our methodologies. Specifically, our objective is to employ AraELECTRA (Antoun et al., 2021), AraBERTv2 (Antoun et al., 2020), and camelBERT-MSA (Inoue et al., 2021) in our methodologies. AraELECTRA, developed based on the ELECTRA framework. Instead of training the model to recover masked tokens, ELECTRA is designed to train a discriminator model. AraBERTv2 and camelBERT-MSA are both Arabic language models developed based on BERT architecture. The former utilizes Farasa segmentation, while the latter, camelBERT-MSA, is pretrained on a Modern Standard Arabic (MSA) corpus. 
 As a concrete instance, here is an example from the training dataset for the Arabic dictionary: 
 
@@ -102,6 +106,7 @@ The RD and WSD datasets are both in JSON format. The RD dataset includes about 2
 Here are the baseline results on the development set for the two tracks.
 Scores were computed using the scoring script provided in this git (`RD/code/score.py` and `WSD/score.ipynb` ).
 
+
 **RD Task:**
 We leverage SOTA MARBERT (Abdul-Mageed, 2021) and CamelBERT-MSA (Inoue et al., 2021) models, employing fine-tuning techniques to excel in Arabic RD. These models are SOTA, proven by their superior performance in the shared task of KSAA-RD (Al-Matham et al., 2023), representing a winning approach.
 
@@ -120,7 +125,7 @@ Initially, the dataset is enriched using lemma id by joining WSD entries with WS
 + Fine-tuning: The approach leverages BertForSequenceClassification, specifically with CamelBERT-MSA and AraBERTv2, due to their exceptional precision in identifying context-sensitive words. The target word in context is wrapped with special tokens "<token>word</token>". 
 + Neural Network: This approach involves feeding the three text embeddings (context, word, and gloss) from the multilingual-E5-base model into a simple LSTM neural network consisting of a 3D input layer, a single LSTM layer, a dense layer, and an output layer. The integrating these advanced embeddings enhances the LSTM's ability to accurately distinguish and disambiguate word senses, lead to improve performance. We refer to this configuration as the E5+LSTM model.
 
-|            |   Dev       | Test    
+|   Model    |   Dev       | Test    
 |------------|------------:|--------:
 | CamelBERT  |   91.54%    | 91.61%
 | AraBERTv2  |   91.32%    | 91.25%
