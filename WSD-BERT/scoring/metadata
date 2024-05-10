@@ -1,0 +1,7 @@
+command: python3 $program/scoring_program.py $input/res/ $input/ref/ $output
+
+description: run scoring program on any data
+
+
+
+
