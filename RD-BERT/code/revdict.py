@@ -47,6 +47,9 @@ def get_parser(
         "--from_pretrained", action="store_true", help="whether to load pretrained weights"
     )
     parser.add_argument(
+        "--load_finetuned", action="store_true", help="whether to load finetuned weights"
+    )
+    parser.add_argument(
         "--model_name", type=str, help="HF model name"
     )
     parser.add_argument(
@@ -266,7 +269,8 @@ def pred(args):
     ## Hyperparams
     logger.debug("Setting up training environment")
 
-    model = models.ARBERTRevDict(args).load(f"{args.save_dir}")
+    model = models.ARBERTRevDict(args)
+
     model.to(args.device)
     model.eval()
 
@@ -284,6 +288,7 @@ def pred(args):
             # print(gloss_tokens)
 
             vecs = model(**gloss_tokens)
+
             # Extract the last hidden states
             for id, word, vec in zip(ids, words, vecs.unbind()):
                 predictions.append(

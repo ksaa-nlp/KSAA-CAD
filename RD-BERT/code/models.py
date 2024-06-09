@@ -53,6 +53,8 @@ class ARBERTRevDict(nn.Module):
         else:
             if args.from_pretrained:
                 self.base_model = AutoModel.from_pretrained(args.model_name)
+            elif args.load_finetuned:
+                self.base_model = AutoModel.from_pretrained(args.save_dir)
             else:
                 model_config = AutoConfig.from_pretrained(args.model_name)
                 self.base_model = AutoModel.from_config(model_config)
@@ -69,9 +71,7 @@ class ARBERTRevDict(nn.Module):
         print("\n--\nsave_pretrained\n--\n")
         # torch.save(self, file)
 
-    @staticmethod
-    def load(file):
-        return AutoModel.from_pretrained(file)
+    
     
 class PositionalEncoding(nn.Module):
     """From PyTorch"""
